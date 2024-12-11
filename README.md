@@ -1,1 +1,1 @@
-# RuralRise
+# Rural Rise
