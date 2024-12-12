@@ -27,3 +27,49 @@ export interface Resource {
   url: string;
   description: string;
 }
+
+export interface TeamMemberType {
+  name: string;
+  role: string;
+  description: string;
+  image: string;
+}
+
+export interface BlogPostType {
+  id: string;
+  title: string;
+  excerpt: string;
+  content: string;
+  image: string;
+  category: string;
+  date: string;
+  author: {
+    name: string;
+    role: string;
+    avatar: string;
+  };
+}
+
+export interface TutorialType {
+  id: string;
+  title: string;
+  description: string;
+  image: string;
+  category: string;
+  duration: string;
+  lessons: number;
+}
+
+export interface SuccessStoryType {
+  id: string;
+  title: string;
+  excerpt: string;
+  content: string;
+  image: string;
+  entrepreneur: {
+    name: string;
+    business: string;
+    avatar: string;
+  };
+  tags: string[];
+}

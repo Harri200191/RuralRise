@@ -7,6 +7,11 @@ import { Auth } from './pages/Auth';
 import { Marketplace } from './pages/Marketplace';
 import { Learn } from './pages/Learn';
 import { Community } from './pages/Community';
+import { About } from './pages/About';
+import { Contact } from './pages/Contact';
+import { Blog } from './pages/Blog';
+import { Tutorials } from './pages/Tutorials';
+import { SuccessStories } from './pages/SuccessStories';
 import { PrivateRoute } from './components/routes/PrivateRoute';
 import { useAuthStore } from './store/authStore';
 import { useInitializeAuth } from './hooks/useInitializeAuth';
@@ -28,6 +33,14 @@ export function App() {
               isAuthenticated ? <Navigate to="/dashboard" /> : <Auth mode="register" />
             } />
             
+            {/* Public Routes */}
+            <Route path="/about" element={<About />} />
+            <Route path="/contact" element={<Contact />} />
+            <Route path="/blog" element={<Blog />} />
+            <Route path="/tutorials" element={<Tutorials />} />
+            <Route path="/success-stories" element={<SuccessStories />} />
+            
+            {/* Protected Routes */}
             <Route path="/" element={
               <PrivateRoute>
                 <Home />
