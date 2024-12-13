@@ -21,21 +21,21 @@ export function Contact() {
                 <MapPin className="text-emerald-600 mt-1 mr-4" />
                 <div>
                   <h3 className="font-medium">Address</h3>
-                  <p className="text-gray-600">123 Innovation Hub, Tech Park, Islamabad, Pakistan</p>
+                  <p className="text-gray-600">NUST H-12, Islamabad, Pakistan</p>
                 </div>
               </div>
               <div className="flex items-start">
                 <Phone className="text-emerald-600 mt-1 mr-4" />
                 <div>
                   <h3 className="font-medium">Phone</h3>
-                  <p className="text-gray-600">+92 51 1234567</p>
+                  <p className="text-gray-600">+92 324 9626601</p>
                 </div>
               </div>
               <div className="flex items-start">
                 <Mail className="text-emerald-600 mt-1 mr-4" />
                 <div>
                   <h3 className="font-medium">Email</h3>
-                  <p className="text-gray-600">contact@ruralrise.pk</p>
+                  <p className="text-gray-600">harisrehman195103@gmail.com</p>
                 </div>
               </div>
             </div>

@@ -6,19 +6,19 @@ import type { TeamMemberType } from '../../types';
 export function About() {
   const team: TeamMemberType[] = [
     {
-      name: 'Fatima Khan',
+      name: 'Haris Rehman',
       role: 'Founder & CEO',
       description: 'Passionate about empowering rural women through technology',
       image: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&q=80&w=200'
     },
     {
-      name: 'Ayesha Ahmed',
+      name: 'Aima Sibtain',
       role: 'Community Director',
       description: 'Expert in building and nurturing entrepreneurial communities',
       image: 'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?auto=format&fit=crop&q=80&w=200'
     },
     {
-      name: 'Zainab Ali',
+      name: 'Muhammad Sulleman',
       role: 'Technology Lead',
       description: 'Dedicated to making technology accessible to all',
       image: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=80&w=200'
@@ -49,7 +49,7 @@ export function About() {
               RuralRise began with a simple observation: talented women entrepreneurs in rural areas faced significant barriers to growing their businesses. Limited access to markets, technology, and business networks held back their potential.
             </p>
             <p className="text-gray-600 mb-6">
-              Founded in 2023, we set out to bridge these gaps by creating a platform that combines e-commerce capabilities with educational resources and mentorship opportunities. Our goal is to empower rural women entrepreneurs to reach their full potential.
+              Founded in 2024, we set out to bridge these gaps by creating a platform that combines e-commerce capabilities with educational resources and mentorship opportunities. Our goal is to empower rural women entrepreneurs to reach their full potential.
             </p>
             <p className="text-gray-600">
               Today, RuralRise serves thousands of entrepreneurs across Pakistan, helping them build successful businesses and contribute to their local economies.
