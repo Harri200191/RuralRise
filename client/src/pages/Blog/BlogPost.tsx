@@ -1,4 +1,3 @@
-import React from 'react';
 import type { BlogPostType } from '../../types';
 
 interface BlogPostProps {
@@ -7,7 +6,7 @@ interface BlogPostProps {
 
 export function BlogPost({ post }: BlogPostProps) {
   return (
-    <article className="bg-white rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-shadow">
+    <article className="bg-white rounded-lg overflow-hidden shadow-sm hover:shadow-lg hover:scale-105 transition-all duration-300">
       <img
         src={post.image}
         alt={post.title}
@@ -19,8 +18,19 @@ export function BlogPost({ post }: BlogPostProps) {
           <span className="mx-2 text-gray-300">•</span>
           <span className="text-sm text-gray-500">{post.date}</span>
         </div>
-        <h2 className="text-xl font-semibold mb-2">{post.title}</h2>
+
+        {/* Wrap the title with an anchor tag that links to the specified URL */}
+        <a
+          href={post.link}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="font-bold text-blue-800 hover:text-blue-900 block"
+        >
+          <h2 className="text-xl font-semibold mb-2">{post.title}</h2>
+        </a>
+
         <p className="text-gray-600 mb-4">{post.excerpt}</p>
+
         <div className="flex items-center">
           <img
             src={post.author.avatar}

@@ -1,5 +1,4 @@
-import React from 'react';
-import { Clock, BookOpen } from 'lucide-react';
+import { BookOpen, Clock } from 'lucide-react';
 import type { TutorialType } from '../../types';
 
 interface TutorialCardProps {
@@ -8,7 +7,7 @@ interface TutorialCardProps {
 
 export function TutorialCard({ tutorial }: TutorialCardProps) {
   return (
-    <div className="bg-white rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-shadow">
+    <div className="bg-white rounded-lg overflow-hidden shadow-sm hover:shadow-lg hover:scale-105 transition-all duration-300">
       <img
         src={tutorial.image}
         alt={tutorial.title}
@@ -20,7 +19,17 @@ export function TutorialCard({ tutorial }: TutorialCardProps) {
             {tutorial.category}
           </span>
         </div>
-        <h3 className="text-xl font-semibold mb-2">{tutorial.title}</h3>
+        {/* Make the title clickable */}
+        <h3 className="text-xl font-semibold mb-2">
+          <a
+            href={tutorial.link} // Link added here
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-black-600 block"
+          >
+            {tutorial.title}
+          </a>
+        </h3>
         <p className="text-gray-600 mb-4">{tutorial.description}</p>
         <div className="flex items-center text-sm text-gray-500">
           <Clock size={16} className="mr-1" />

@@ -1,6 +1,5 @@
-import React from 'react';
-import { BlogPost } from './BlogPost';
 import type { BlogPostType } from '../../types';
+import { BlogPost } from './BlogPost';
 
 export function Blog() {
   const posts: BlogPostType[] = [
@@ -16,7 +15,8 @@ export function Blog() {
         name: 'Amina Khan',
         role: 'Business Mentor',
         avatar: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&q=80&w=200'
-      }
+      },
+      link: 'https://fastercapital.com/content/The-Ultimate-Guide-to-Becoming-a-Successful-Rural-Entrepreneur.html'  // Added link
     },
     {
       id: '2',
@@ -27,10 +27,11 @@ export function Blog() {
       category: 'Marketing',
       date: 'March 12, 2024',
       author: {
-        name: 'Sarah Ahmed',
+        name: 'Hyejune Park',
         role: 'Digital Marketing Expert',
         avatar: 'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?auto=format&fit=crop&q=80&w=200'
-      }
+      },
+      link: 'https://extension.okstate.edu/fact-sheets/digital-retailing-and-marketing-tools-for-rural-small-businesses-navigating-the-digital-age.html#:~:text=Digital%20Marketing%20Tips%20for%20Rural%20Small%20Business%20Owners,local%20SEO%3A%20...%205%20Emphasize%20video%20marketing.%20'
     },
     {
       id: '3',
@@ -40,9 +41,11 @@ export function Blog() {
       image: 'https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&q=80&w=500',
       category: 'Finance',
       date: 'March 10, 2024',
+      link: 'https://www.businessnewsdaily.com/5954-smb-finance-management-tips.html',
+
       author: {
-        name: 'Zainab Ali',
-        role: 'Financial Advisor',
+        name: 'Max-Freedom',
+        role: 'Senior Analyst',
         avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=80&w=200'
       }
     }
