@@ -6,10 +6,10 @@ const createProduct = async (req, res) => {
       const seller = req.user.userId; // Changed from req.user.id to req.user.userId
   
       const product = new Product({
-        title,
-        description,
-        price,
-        category,
+        title: title,
+        description: description,
+        price: price,
+        category:category,
         image: imageUrl,
         seller
       });
@@ -20,7 +20,6 @@ const createProduct = async (req, res) => {
   
       res.status(201).json(populatedProduct);
     } catch (error) {
-      console.error('Product creation error:', error);
       res.status(500).json({ message: 'Failed to create product' });
     }
   };
@@ -32,7 +31,6 @@ const getProducts = async (req, res) => {
       .sort({ createdAt: -1 });
     res.json(products);
   } catch (error) {
-    console.error('Product fetch error:', error);
     res.status(500).json({ message: 'Failed to fetch products' });
   }
 };
@@ -48,7 +46,6 @@ const getProductById = async (req, res) => {
     
     res.json(product);
   } catch (error) {
-    console.error('Product fetch error:', error);
     res.status(500).json({ message: 'Failed to fetch product' });
   }
 };
@@ -74,7 +71,6 @@ const updateProduct = async (req, res) => {
 
     res.json(updatedProduct);
   } catch (error) {
-    console.error('Product update error:', error);
     res.status(500).json({ message: 'Failed to update product' });
   }
 };
@@ -95,7 +91,6 @@ const deleteProduct = async (req, res) => {
     await product.remove();
     res.json({ message: 'Product removed' });
   } catch (error) {
-    console.error('Product deletion error:', error);
     res.status(500).json({ message: 'Failed to delete product' });
   }
 };

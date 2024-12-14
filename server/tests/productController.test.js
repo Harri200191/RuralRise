@@ -4,10 +4,10 @@ const {
     getProductById,
     updateProduct,
     deleteProduct,
-  } = require("../controllers/productController");
+  } = require("../controllers/product_controller");
   const Product = require("../models/Product");
   
-  jest.mock("../models/Product");
+  jest.mock("../models/Product"); // Ensure the mock is set before requiring the controller
   
   describe("Product Controller", () => {
     let req, res;
@@ -27,51 +27,63 @@ const {
       jest.clearAllMocks();
     });
   
-    describe("createProduct", () => {
-      test("should create a product successfully", async () => {
-        req.body = {
-          title: "Test Product",
-          description: "Test Description",
-          price: 100,
-          category: "Test Category",
-          imageUrl: "http://example.com/image.jpg",
+    describe("createProduct Controller", () => {
+      beforeEach(() => {
+        req = {
+          user: { userId: "mockSellerId" },
+          body: {
+            title: "Mock Product",
+            description: "Mock Description",
+            price: 100,
+            category: "Mock Category",
+            imageUrl: "mockImageUrl",
+          },
         };
   
-        const savedProductMock = {
-          _id: "product123",
-          title: "Test Product",
-          description: "Test Description",
-          price: 100,
-          category: "Test Category",
-          seller: "user123",
-        };
-  
-        Product.prototype.save = jest.fn().mockResolvedValue(savedProductMock);
-        Product.findById = jest.fn().mockResolvedValue({
-          ...savedProductMock,
-          seller: { name: "Test Seller" },
+        // Mock the save method to resolve with the saved product data
+        Product.prototype.save.mockResolvedValue({
+          _id: "mockProductId",
+          title: req.body.title,
+          description: req.body.description,
+          price: req.body.price,
+          category: req.body.category,
+          image: req.body.imageUrl,
+          seller: req.user.userId,
         });
   
-        await createProduct(req, res);
-  
-        expect(Product.prototype.save).toHaveBeenCalled();
-        expect(res.status).toHaveBeenCalledWith(201);
-        expect(res.json).toHaveBeenCalledWith({
-          ...savedProductMock,
-          seller: { name: "Test Seller" },
+        // Mock findById to return an object with a populate method
+        Product.findById.mockReturnValue({
+          populate: jest.fn().mockResolvedValue({
+            _id: "mockProductId",
+            title: req.body.title,
+            description: req.body.description,
+            price: req.body.price,
+            category: req.body.category,
+            image: req.body.imageUrl,
+            seller: { name: "Mock Seller" },
+          }),
         });
       });
   
-      test("should return an error if product creation fails", async () => {
-        req.body = {
-          title: "Test Product",
-          description: "Test Description",
-          price: 100,
-          category: "Test Category",
-          imageUrl: "http://example.com/image.jpg",
-        };
+      test("should create a product successfully", async () => {
+        await createProduct(req, res);
   
-        Product.prototype.save = jest.fn().mockRejectedValue(new Error("Database error"));
+        expect(Product.prototype.save).toHaveBeenCalled();
+        expect(Product.findById).toHaveBeenCalledWith("mockProductId");
+        expect(res.status).toHaveBeenCalledWith(201);
+        expect(res.json).toHaveBeenCalledWith({
+          _id: "mockProductId",
+          title: "Mock Product",
+          description: "Mock Description",
+          price: 100,
+          category: "Mock Category",
+          image: "mockImageUrl",
+          seller: { name: "Mock Seller" },
+        });
+      });
+  
+      test("should handle database errors", async () => {
+        Product.prototype.save.mockRejectedValue(new Error("Database error"));
   
         await createProduct(req, res);
   
@@ -87,7 +99,8 @@ const {
           { _id: "product2", title: "Product 2", seller: { name: "Seller 2" } },
         ];
   
-        Product.find = jest.fn().mockReturnValue({
+        // Mock the chained methods: find().populate().sort()
+        Product.find.mockReturnValue({
           populate: jest.fn().mockReturnValue({
             sort: jest.fn().mockResolvedValue(productsMock),
           }),
@@ -100,7 +113,8 @@ const {
       });
   
       test("should return an error if product fetch fails", async () => {
-        Product.find = jest.fn().mockReturnValue({
+        // Mock the chained methods to reject at sort
+        Product.find.mockReturnValue({
           populate: jest.fn().mockReturnValue({
             sort: jest.fn().mockRejectedValue(new Error("Database error")),
           }),
@@ -123,7 +137,8 @@ const {
   
         req.params.id = "product1";
   
-        Product.findById = jest.fn().mockReturnValue({
+        // Mock findById().populate()
+        Product.findById.mockReturnValue({
           populate: jest.fn().mockResolvedValue(productMock),
         });
   
@@ -136,7 +151,8 @@ const {
       test("should return 404 if product is not found", async () => {
         req.params.id = "nonexistent";
   
-        Product.findById = jest.fn().mockReturnValue({
+        // Mock findById().populate() to return null
+        Product.findById.mockReturnValue({
           populate: jest.fn().mockResolvedValue(null),
         });
   
@@ -149,7 +165,8 @@ const {
       test("should return an error if fetching product fails", async () => {
         req.params.id = "product1";
   
-        Product.findById = jest.fn().mockReturnValue({
+        // Mock findById().populate() to reject
+        Product.findById.mockReturnValue({
           populate: jest.fn().mockRejectedValue(new Error("Database error")),
         });
   
@@ -170,8 +187,11 @@ const {
           seller: req.user.id,
         };
   
-        Product.findById = jest.fn().mockResolvedValue(productMock);
-        Product.findByIdAndUpdate = jest.fn().mockResolvedValue({
+        // Mock findById to return the product
+        Product.findById.mockResolvedValue(productMock);
+  
+        // Mock findByIdAndUpdate to return the updated product
+        Product.findByIdAndUpdate.mockResolvedValue({
           ...productMock,
           ...req.body,
         });
@@ -198,7 +218,8 @@ const {
           seller: "anotherUser",
         };
   
-        Product.findById = jest.fn().mockResolvedValue(productMock);
+        // Mock findById to return a product with a different seller
+        Product.findById.mockResolvedValue(productMock);
   
         await updateProduct(req, res);
   
@@ -209,7 +230,8 @@ const {
       test("should return 404 if product is not found", async () => {
         req.params.id = "nonexistent";
   
-        Product.findById = jest.fn().mockResolvedValue(null);
+        // Mock findById to return null
+        Product.findById.mockResolvedValue(null);
   
         await updateProduct(req, res);
   
@@ -225,10 +247,11 @@ const {
         const productMock = {
           _id: "product1",
           seller: req.user.id,
-          remove: jest.fn(),
+          remove: jest.fn().mockResolvedValue(),
         };
   
-        Product.findById = jest.fn().mockResolvedValue(productMock);
+        // Mock findById to return the product
+        Product.findById.mockResolvedValue(productMock);
   
         await deleteProduct(req, res);
   
@@ -245,7 +268,8 @@ const {
           seller: "anotherUser",
         };
   
-        Product.findById = jest.fn().mockResolvedValue(productMock);
+        // Mock findById to return a product with a different seller
+        Product.findById.mockResolvedValue(productMock);
   
         await deleteProduct(req, res);
   
@@ -256,7 +280,8 @@ const {
       test("should return 404 if product is not found", async () => {
         req.params.id = "nonexistent";
   
-        Product.findById = jest.fn().mockResolvedValue(null);
+        // Mock findById to return null
+        Product.findById.mockResolvedValue(null);
   
         await deleteProduct(req, res);
   

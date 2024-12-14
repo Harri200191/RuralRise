@@ -34,8 +34,6 @@ const contactUs = async (req, res) => {
         await sgMail.send(msg);
         res.status(200).json({success: true, message: "Email sent successfully"});
     } catch (error) {
-        console.error(error);
-
         if (error.response) {
         console.error(error.response.body)
         }
