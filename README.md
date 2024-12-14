@@ -47,6 +47,14 @@ The application is built using the **MERN** stack:
    PORT=5000
    MONGO_URI=your_mongodb_connection_string
    JWT_SECRET=your_secret_key
+   JWT_SECRET=haris42398752389
+   NODE_ENV=<your env>
+
+   EMAIL_HOST=<your email host>
+   EMAIL_USER=<Your email user>
+
+   FRONTEND_URL=your_frontend_url
+   SENDGRID_API_KEY=your_sendgrid_api_key
    ```
 
 4. Start the development server:
