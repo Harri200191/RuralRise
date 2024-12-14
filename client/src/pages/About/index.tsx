@@ -1,7 +1,6 @@
-import React from 'react';
+import type { TeamMemberType } from '../../types';
 import { Mission } from './Mission';
 import { TeamMember } from './TeamMember';
-import type { TeamMemberType } from '../../types';
 
 export function About() {
   const team: TeamMemberType[] = [
@@ -9,19 +8,19 @@ export function About() {
       name: 'Haris Rehman',
       role: 'Founder & CEO',
       description: 'Passionate about empowering rural women through technology',
-      image: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&q=80&w=200'
+      image: 'https://media.licdn.com/dms/image/v2/D4D03AQHFCzdNAWKkOw/profile-displayphoto-shrink_100_100/profile-displayphoto-shrink_100_100/0/1726953021890?e=1739404800&v=beta&t=faTBejL_2VZ7xZax_T5au2ti22FFTV3aCw-HWxcdBkA'
     },
     {
       name: 'Aima Sibtain',
       role: 'Community Director',
       description: 'Expert in building and nurturing entrepreneurial communities',
-      image: 'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?auto=format&fit=crop&q=80&w=200'
+      image: 'https://th.bing.com/th/id/OIP.CjW4KuMskKzlsS14Ek4YDQHaHa?rs=1&pid=ImgDetMain'
     },
     {
       name: 'Muhammad Sulleman',
       role: 'Technology Lead',
       description: 'Dedicated to making technology accessible to all',
-      image: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=80&w=200'
+      image: 'https://media.licdn.com/dms/image/v2/D4D03AQHfQunIzV_S8A/profile-displayphoto-shrink_400_400/profile-displayphoto-shrink_400_400/0/1685737190556?e=1739404800&v=beta&t=5vV1oanGf8q2CEXILblMtUfNNiPr6LmGmPHjPMDCx5c'
     }
   ];
 
