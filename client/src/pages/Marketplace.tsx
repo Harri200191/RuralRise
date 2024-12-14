@@ -6,7 +6,7 @@ import { AddProductForm } from '../components/marketplace/AddProductForm';
 import { CartDrawer } from '../components/marketplace/CartDrawer';
 import { useAuthStore } from '../store/authStore';
 import { useCartStore } from '../store/cartStore';
-import type { Product } from '../types';
+import { useProducts } from '../hooks/useProducts';
 
 export function Marketplace() {
   const [showAddProduct, setShowAddProduct] = useState(false);
@@ -14,38 +14,33 @@ export function Marketplace() {
   const [searchQuery, setSearchQuery] = useState('');
   const { user } = useAuthStore();
   const cartItems = useCartStore(state => state.items);
+  const { productList, isLoading, error, addProduct } = useProducts();
 
-  const [products] = React.useState<Product[]>([
-    {
-      id: '1',
-      title: 'Hand-woven Shawl',
-      description: 'Traditional hand-woven shawl made with local wool',
-      price: 2500,
-      image: 'https://images.unsplash.com/photo-1601244005535-a48d21d951ac?auto=format&fit=crop&q=80&w=500',
-      seller: 'Fatima Crafts',
-      category: 'Textiles'
-    },
-    {
-      id: '2',
-      title: 'Organic Honey',
-      description: 'Pure organic honey from the mountains',
-      price: 800,
-      image: 'https://images.unsplash.com/photo-1587049352846-4a222e784d38?auto=format&fit=crop&q=80&w=500',
-      seller: 'Mountain Bee Farm',
-      category: 'Food'
-    }
-  ]);
-
-  const filteredProducts = products.filter(product =>
+  const filteredProducts = productList.filter(product =>
     product.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
     product.description.toLowerCase().includes(searchQuery.toLowerCase()) ||
     product.category.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
-  const handleAddProduct = async (productData: any) => {
-    // Here you would typically make an API call to add the product
-    console.log('Adding product:', productData);
+  const handleAddProductSuccess = () => {
+    setShowAddProduct(false);
   };
+
+  if (isLoading) {
+    return (
+      <div className="container mx-auto px-4 py-8">
+        <p>Loading products...</p>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="container mx-auto px-4 py-8">
+        <p className="text-red-600">{error}</p>
+      </div>
+    );
+  }
 
   return (
     <div className="container mx-auto px-4 py-8">
@@ -87,7 +82,7 @@ export function Marketplace() {
           {showAddProduct && (
             <div className="mt-4 max-w-lg mx-auto bg-white p-6 rounded-lg shadow">
               <h2 className="text-xl font-semibold mb-4">Add New Product</h2>
-              <AddProductForm onSubmit={handleAddProduct} isLoading={false} />
+              <AddProductForm onSuccess={handleAddProductSuccess} />
             </div>
           )}
         </div>

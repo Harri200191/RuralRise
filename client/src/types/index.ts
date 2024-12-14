@@ -18,6 +18,14 @@ export interface User {
   avatar?: string;
 }
 
+export interface ProductFormData {
+  title: string;
+  description: string;
+  price: number;
+  category: string;
+  imageUrl: string;
+}
+
 export interface Resource {
   id: string;
   title: string;
