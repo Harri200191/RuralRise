@@ -5,6 +5,7 @@ const mongoose = require("mongoose");
 const authRoutes = require("./routes/auth");
 const emailRoutes = require("./routes/contact_route");
 const { authenticateToken } = require("./middleware/auth");
+const productRoutes = require("./routes/products");
 
 dotenv.config();
 
@@ -27,6 +28,7 @@ mongoose.connect(process.env.MONGODB_URI)
 // Routes
 app.use('/api/auth', authRoutes);
 app.use("/api/contact", emailRoutes);
+app.use("/api/products", productRoutes);
 
 // Error handling middleware
 app.use((err, req, res, next) => {
