@@ -35,6 +35,7 @@ export interface TeamMemberType {
   image: string;
 }
 
+// types.ts or wherever BlogPostType is defined
 export interface BlogPostType {
   id: string;
   title: string;
@@ -48,6 +49,7 @@ export interface BlogPostType {
     role: string;
     avatar: string;
   };
+  link?: string;  // Add this line to allow the link property
 }
 
 export interface TutorialType {
@@ -58,6 +60,7 @@ export interface TutorialType {
   category: string;
   duration: string;
   lessons: number;
+  link?: string;
 }
 
 export interface SuccessStoryType {
@@ -72,4 +75,5 @@ export interface SuccessStoryType {
     avatar: string;
   };
   tags: string[];
+  link?: string;
 }
