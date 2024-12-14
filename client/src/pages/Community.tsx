@@ -71,9 +71,14 @@ export function Community() {
         <p className="text-gray-600 mb-6">
           Join our community to connect with mentors and fellow entrepreneurs
         </p>
-        <button className="bg-emerald-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-emerald-700 transition-colors">
+        <a
+          href="https://discord.gg/MGPX2647" // Replace with your desired URL
+          target="_blank" // Opens the link in a new tab
+          rel="noopener noreferrer" // Improves security when using target="_blank"
+          className="bg-emerald-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-emerald-700 transition-colors"
+        >
           Join the Community
-        </button>
+        </a>
       </div>
     </div>
   );

@@ -1,9 +1,48 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 export function ContactForm() {
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const [email, setEmail] = useState('');
+  const [name, setName] = useState('');
+  const [subject, setSubject] = useState('');
+  const [message, setMessage] = useState('');
+  const [loading, setLoading] = useState(false); // State to track loading status
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    // Handle form submission
+    setLoading(true); // Set loading state to true when form is submitted
+
+    const data = {
+      name: name,
+      email: email,
+      subject: subject,
+      message: message,
+    };
+
+    try {
+      const response = await fetch('http://127.0.0.1:5000/api/contact/email', {
+        method: 'POST',
+        body: JSON.stringify(data),
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+
+      if (response.ok) {
+        // Handle success (e.g., display a success message or clear the form)
+        setName('');
+        setEmail('');
+        setSubject('');
+        setMessage('');
+      } else {
+        // Handle error (e.g., display an error message)
+        alert('Failed to send message. Please try again.');
+      }
+    } catch (error) {
+      console.error('Error:', error);
+      alert('An error occurred while sending the message.');
+    } finally {
+      setLoading(false); // Set loading state to false after request completes
+    }
   };
 
   return (
@@ -16,6 +55,8 @@ export function ContactForm() {
           type="text"
           id="name"
           name="name"
+          value={name}
+          onChange={(e) => setName(e.target.value)}
           required
           className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-emerald-500 focus:ring-emerald-500"
         />
@@ -29,6 +70,8 @@ export function ContactForm() {
           type="email"
           id="email"
           name="email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
           required
           className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-emerald-500 focus:ring-emerald-500"
         />
@@ -42,6 +85,8 @@ export function ContactForm() {
           type="text"
           id="subject"
           name="subject"
+          value={subject}
+          onChange={(e) => setSubject(e.target.value)}
           required
           className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-emerald-500 focus:ring-emerald-500"
         />
@@ -55,6 +100,8 @@ export function ContactForm() {
           id="message"
           name="message"
           rows={4}
+          value={message}
+          onChange={(e) => setMessage(e.target.value)}
           required
           className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-emerald-500 focus:ring-emerald-500"
         />
@@ -62,9 +109,12 @@ export function ContactForm() {
 
       <button
         type="submit"
-        className="w-full bg-emerald-600 text-white py-2 px-4 rounded-lg hover:bg-emerald-700 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:ring-offset-2"
+        disabled={loading} // Disable the button if loading is true
+        className={`w-full py-2 px-4 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:ring-offset-2 ${
+          loading ? 'bg-gray-400 cursor-not-allowed' : 'bg-emerald-600 text-white hover:bg-emerald-700'
+        }`}
       >
-        Send Message
+        {loading ? 'Sending...' : 'Send Message'} {/* Change button text based on loading state */}
       </button>
     </form>
   );
