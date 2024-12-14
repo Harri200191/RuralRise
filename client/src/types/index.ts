@@ -8,6 +8,14 @@ export interface Product {
   category: string;
 }
 
+export interface ProductFormData {
+  title: string;
+  description: string;
+  price: number;
+  category: string;
+  imageUrl: string;
+}
+
 export interface User {
   id: string;
   name: string;

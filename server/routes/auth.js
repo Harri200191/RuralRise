@@ -2,8 +2,13 @@ const express = require("express");
 const jwt = require("jsonwebtoken");
 const User = require("../models/User");
 const  authenticateToken  = require("../middleware/auth");
+const token_model = require("../models/tokenModel");
 
 const router = express.Router();
+
+const generateToken = (id) =>{
+  return jwt.sign({id}, process.env.JWT_SECRET, {expiresIn: "1d"});
+};
 
 // Register
 router.post('/register', async (req, res) => {
@@ -23,13 +28,18 @@ router.post('/register', async (req, res) => {
       location,
     });
 
+
     await user.save();
 
-    const token = jwt.sign(
-      { userId: user._id },
-      process.env.JWT_SECRET,
-      { expiresIn: '24h' }
-    );
+    const token = generateToken(user._id);
+
+    res.cookie("Token", token, {
+      path: "/",
+      httpOnly: true,
+      expires: new Date(Date.now() + 1000 * 86400),
+      sameSite: "none",
+      secure: true
+    });
 
     res.status(201).json({
       token,
@@ -53,19 +63,26 @@ router.post('/login', async (req, res) => {
 
     const user = await User.findOne({ email });
     if (!user) {
+      console.log("User not found")
       return res.status(401).json({ message: 'Invalid credentials' });
     }
 
     const isMatch = await user.comparePassword(password);
     if (!isMatch) {
+      console.log("Invalid credentials")
       return res.status(401).json({ message: 'Invalid credentials' });
     }
 
-    const token = jwt.sign(
-      { userId: user._id },
-      process.env.JWT_SECRET,
-      { expiresIn: '24h' }
-    );
+    const token = generateToken(user._id); 
+
+    res.cookie("Token", token, {
+      path: "/",
+      httpOnly: true,
+      expires: new Date(Date.now() + 1000 * 86400),
+      sameSite: "none",
+      secure: true
+    });
+
 
     res.json({
       token,

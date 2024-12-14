@@ -7,8 +7,11 @@ const user_model = require("../models/User");
 const protect = asyncHandler(async(req, resp, next) => {
     try{
         const token = req.cookies.Token;
+        console.log("Token: ", token);
+
         if (!token){
             resp.status(401);
+            console.log("Not authorized, Please logIn");
             throw new Error("Not authorized, Please logIn")
         };
 
@@ -20,6 +23,7 @@ const protect = asyncHandler(async(req, resp, next) => {
 
         if (!user){
             resp.status(401);
+            console.log("User not found");
             throw new Error("User not found");
         };
 
@@ -29,6 +33,7 @@ const protect = asyncHandler(async(req, resp, next) => {
     }
     catch(err){
         resp.status(401);
+        console.log(err)
         throw new Error(err);
     }
 });

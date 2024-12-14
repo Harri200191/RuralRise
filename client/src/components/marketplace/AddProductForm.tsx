@@ -1,21 +1,41 @@
+import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
+import { products } from '../../services/api';
 import type { ProductFormData } from '../../types/marketplace';
 
 interface AddProductFormProps {
-  onSubmit: (data: ProductFormData) => void;
-  isLoading: boolean;
+  onSuccess?: () => void;
 }
 
-export function AddProductForm({ onSubmit, isLoading }: AddProductFormProps) {
+export function AddProductForm({ onSuccess }: AddProductFormProps) {
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [error, setError] = useState<string | null>(null);
   const { register, handleSubmit, reset, formState: { errors } } = useForm<ProductFormData>();
 
-  const handleFormSubmit = (data: ProductFormData) => {
-    onSubmit(data);
-    reset();
+  const onSubmit = async (data: ProductFormData) => {
+    setIsSubmitting(true);
+    setError(null);
+
+    try {
+      await products.create(data);
+      reset();
+      onSuccess?.();
+    } catch (err) {
+      setError('Failed to add product. Please try again.');
+      console.error('Add product error:', err);
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
-    <form onSubmit={handleSubmit(handleFormSubmit)} className="space-y-4">
+    <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
+      {error && (
+        <div className="bg-red-50 text-red-600 p-3 rounded-lg text-sm">
+          {error}
+        </div>
+      )}
+
       <div>
         <label htmlFor="title" className="block text-sm font-medium text-gray-700">
           Product Title
@@ -101,10 +121,10 @@ export function AddProductForm({ onSubmit, isLoading }: AddProductFormProps) {
 
       <button
         type="submit"
-        disabled={isLoading}
+        disabled={isSubmitting}
         className="w-full bg-emerald-600 text-white py-2 px-4 rounded-lg hover:bg-emerald-700 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:ring-offset-2 disabled:opacity-50"
       >
-        {isLoading ? 'Adding Product...' : 'Add Product'}
+        {isSubmitting ? 'Adding Product...' : 'Add Product'}
       </button>
     </form>
   );
