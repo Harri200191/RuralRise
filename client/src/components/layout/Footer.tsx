@@ -36,7 +36,6 @@ export function Footer() {
               <li><button className="text-emerald-100 hover:text-white">English</button></li>
               <li><button className="text-emerald-100 hover:text-white">اردو</button></li>
               <li><button className="text-emerald-100 hover:text-white">پنجابی</button></li>
-              <li><button className="text-emerald-100 hover:text-white">سنڌي</button></li>
             </ul>
           </div>
         </div>

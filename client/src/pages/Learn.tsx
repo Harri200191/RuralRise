@@ -7,8 +7,7 @@ import type { Resource } from '../types';
 const LANGUAGE_OPTIONS = [
   { value: 'english', label: 'English' },
   { value: 'urdu', label: 'اردو' },
-  { value: 'punjabi', label: 'پنجابی' },
-  { value: 'sindhi', label: 'سنڌي' }
+  { value: 'punjabi', label: 'پنجابی' }
 ];
 
 const TYPE_OPTIONS = [
@@ -26,25 +25,154 @@ const LEVEL_OPTIONS = [
 export function Learn() {
   const { filters, toggleFilter, clearFilters } = useFilters();
   const [resources] = React.useState<Resource[]>([
+    // English Beginner Resources
     {
       id: '1',
-      title: 'Getting Started with Online Business',
+      title: 'Introduction to Digital Marketing',
       type: 'video',
-      language: 'urdu',
+      language: 'english',
       difficulty: 'beginner',
       url: '#',
-      description: 'Learn the basics of setting up and running an online business'
+      description: 'Learn the basics of digital marketing to grow your online presence.'
     },
     {
       id: '2',
-      title: 'Financial Management for Small Businesses',
+      title: 'Starting a Dropshipping Business',
+      type: 'article',
+      language: 'english',
+      difficulty: 'beginner',
+      url: '#',
+      description: 'Understand the essentials of launching a successful dropshipping store.'
+    },
+    {
+      id: '3',
+      title: 'Freelancing for Beginners',
       type: 'course',
       language: 'english',
+      difficulty: 'beginner',
+      url: '#',
+      description: 'Step-by-step guide to becoming a successful freelancer in the digital economy.'
+    },
+  
+    // Urdu Intermediate Resources
+    {
+      id: '4',
+      title: 'SEO Techniques for Small Businesses',
+      type: 'video',
+      language: 'urdu',
       difficulty: 'intermediate',
       url: '#',
-      description: 'Master the essentials of managing your business finances'
+      description: 'Learn search engine optimization techniques to increase website traffic.'
+    },
+    {
+      id: '5',
+      title: 'Social Media Strategies',
+      type: 'article',
+      language: 'urdu',
+      difficulty: 'intermediate',
+      url: '#',
+      description: 'Effective strategies to boost your business through social media platforms.'
+    },
+    {
+      id: '6',
+      title: 'Content Marketing Mastery',
+      type: 'course',
+      language: 'urdu',
+      difficulty: 'intermediate',
+      url: '#',
+      description: 'Master content marketing and learn how to create engaging content.'
+    },
+  
+    // Punjabi Advanced Resources
+    {
+      id: '7',
+      title: 'Scaling Your Online Business',
+      type: 'video',
+      language: 'punjabi',
+      difficulty: 'advanced',
+      url: '#',
+      description: 'Techniques and strategies for scaling your business to the next level.'
+    },
+    {
+      id: '8',
+      title: 'E-commerce Analytics',
+      type: 'article',
+      language: 'punjabi',
+      difficulty: 'advanced',
+      url: '#',
+      description: 'Learn how to analyze data to improve your e-commerce performance.'
+    },
+    {
+      id: '9',
+      title: 'Advanced Marketing Funnels',
+      type: 'course',
+      language: 'punjabi',
+      difficulty: 'advanced',
+      url: '#',
+      description: 'Deep dive into creating and optimizing advanced marketing funnels.'
+    },
+  
+    // Sindhi Beginner Resources
+    {
+      id: '10',
+      title: 'Basics of Graphic Design',
+      type: 'video',
+      language: 'sindhi',
+      difficulty: 'beginner',
+      url: '#',
+      description: 'Learn the fundamentals of graphic design using popular tools.'
+    },
+    {
+      id: '11',
+      title: 'Starting a Blog',
+      type: 'article',
+      language: 'sindhi',
+      difficulty: 'beginner',
+      url: '#',
+      description: 'A beginner-friendly guide to launching and monetizing a blog.'
+    },
+    {
+      id: '12',
+      title: 'Introduction to Affiliate Marketing',
+      type: 'course',
+      language: 'sindhi',
+      difficulty: 'beginner',
+      url: '#',
+      description: 'Learn how to start earning through affiliate marketing programs.'
+    },
+  
+    // English Advanced Resources
+    {
+      id: '13',
+      title: 'Artificial Intelligence in E-commerce',
+      type: 'video',
+      language: 'english',
+      difficulty: 'advanced',
+      url: '#',
+      description: 'Discover how AI is revolutionizing the e-commerce landscape.'
+    },
+    {
+      id: '14',
+      title: 'International Market Expansion',
+      type: 'article',
+      language: 'english',
+      difficulty: 'advanced',
+      url: '#',
+      description: 'Guide to taking your business to global markets effectively.'
+    },
+    {
+      id: '15',
+      title: 'Data-Driven Marketing',
+      type: 'course',
+      language: 'english',
+      difficulty: 'advanced',
+      url: '#',
+      description: 'Learn advanced data-driven marketing techniques for scaling your business.'
     }
+  
+    // Add more resources as needed to expand the dataset.
   ]);
+  
 
   const filteredResources = resources.filter(resource => {
     const languageMatch = filters.languages.length === 0 || filters.languages.includes(resource.language);
