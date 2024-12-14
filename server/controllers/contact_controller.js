@@ -14,10 +14,10 @@ const contactUs = async (req, res) => {
   if (!user) {
     res.status(400);
     throw new Error("User not found, please signup");
-  }
+  } 
   
   //   Validation
-  if (!subject || !message) {
+  if (!subject.trim() || !message.trim()) {
     res.status(400);
     throw new Error("Please add subject and message");
   }
@@ -34,8 +34,6 @@ const contactUs = async (req, res) => {
         await sgMail.send(msg);
         res.status(200).json({success: true, message: "Email sent successfully"});
     } catch (error) {
-        console.error(error);
-
         if (error.response) {
         console.error(error.response.body)
         }
