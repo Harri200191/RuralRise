@@ -1,6 +1,5 @@
-import React from 'react';
-import { StoryCard } from './StoryCard';
 import type { SuccessStoryType } from '../../types';
+import { StoryCard } from './StoryCard';
 
 export function SuccessStories() {
   const stories: SuccessStoryType[] = [
@@ -9,26 +8,28 @@ export function SuccessStories() {
       title: 'From Local Artisan to Online Success',
       excerpt: 'How Fatima transformed her traditional handicraft business into a thriving online enterprise.',
       content: '',
-      image: 'https://images.unsplash.com/photo-1556911220-e15b29be8c8f?auto=format&fit=crop&q=80&w=500',
+      image: 'https://th.bing.com/th/id/OIP.IUOLzL6DEMeEyhYzE-MRRAHaFj?rs=1&pid=ImgDetMain',
       entrepreneur: {
-        name: 'Fatima Bibi',
-        business: 'Fatima Handicrafts',
-        avatar: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&q=80&w=200'
+        name: 'Divvya Malik',
+        business: 'Typof',
+        avatar: 'https://images.crunchbase.com/image/upload/c_thumb,h_170,w_170,f_auto,g_face,z_0.7,b_white,q_auto:eco,dpr_1/b9ipwt3oxe7qucjl2e1u'
       },
-      tags: ['Handicrafts', 'E-commerce', 'Rural Business']
+      tags: ['Handicrafts', 'E-commerce', 'Rural Business'],
+      link:'https://yourstory.com/people/divya-mallick'
     },
     {
       id: '2',
-      title: 'Growing a Food Business Through Digital Marketing',
-      excerpt: 'Ayesha journey of expanding her home-based food business using social media and online platforms.',
+      title: 'Promoting Odisha handicrafts and empowering artisans',
+      excerpt: 'It offers personalised products online, ensuring a consistent income for artisans.',
       content: '',
-      image: 'https://images.unsplash.com/photo-1594708767771-a7502209ff51?auto=format&fit=crop&q=80&w=500',
+      image: 'https://images.yourstory.com/cs/2/b094ec506da611eab285b7ee8106293d/Maavni-1632397419896.jpg?fm=png&auto=format&blur=500',
       entrepreneur: {
-        name: 'Ayesha Khan',
-        business: 'Ayesha Kitchen',
-        avatar: 'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?auto=format&fit=crop&q=80&w=200'
+        name: 'Smaranika Mohapatra',
+        business: 'Maavni Designs',
+        avatar: 'https://th.bing.com/th/id/OIP.UHLAPVeL5z8pxS1B6y5_BQAAAA?rs=1&pid=ImgDetMain'
       },
-      tags: ['Food Business', 'Digital Marketing', 'Home-based']
+      tags: ['Designs', 'Handicrafts', 'Home-based'],
+      link:'https://yourstory.com/2021/09/startup-bharat-bhubaneswar-based-ecommerce-startup'
     }
   ];
 
