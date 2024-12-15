@@ -3,7 +3,7 @@ export interface Product {
   title: string;
   description: string;
   price: number;
-  image: string;
+  image: object;
   seller: string;
   category: string;
 }
@@ -24,7 +24,7 @@ export interface ProductFormData {
   description: string;
   price: number;
   category: string;
-  imageUrl: string;
+  imageUrl: object;
 }
 
 export interface Resource {

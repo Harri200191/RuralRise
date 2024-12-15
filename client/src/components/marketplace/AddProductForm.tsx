@@ -4,22 +4,52 @@ import { products } from '../../services/api';
 import type { ProductFormData } from '../../types/marketplace';
 
 interface AddProductFormProps {
-  onSuccess?: () => void;
+  onSuccess?: (newProduct: ProductFormData) => void; // Type it according to the product data returned by API
 }
 
 export function AddProductForm({ onSuccess }: AddProductFormProps) {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [imageFile, setImageFile] = useState<File | null>(null); // Store selected file
   const { register, handleSubmit, reset, formState: { errors } } = useForm<ProductFormData>();
+
+  // Handle file selection
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files?.length) {
+      setImageFile(e.target.files[0]);
+    }
+  };
 
   const onSubmit = async (data: ProductFormData) => {
     setIsSubmitting(true);
     setError(null);
-
+  
     try {
-      await products.create(data);
+      // Create a FormData object
+      const formData = new FormData();
+  
+      // Append the regular product data to FormData
+      Object.keys(data).forEach((key) => {
+        const value = data[key as keyof ProductFormData];
+  
+        if (value !== undefined && value !== null) {
+          // Append key-value pair to FormData
+          formData.append(key, value.toString());
+        }
+      }); 
+
+      if (imageFile) {
+        formData.append('file', imageFile);  
+      }
+  
+      console.log("Files: ", imageFile);
+      console.log("Form Data: ", Array.from(formData.entries())); 
+
+      // Assuming the .create function supports sending FormData
+      const newProduct = await products.create(formData); // Send formData containing both product info and the image file
+  
       reset();
-      onSuccess?.();
+      onSuccess?.(newProduct); // Pass the new product to the parent
     } catch (err) {
       setError('Failed to add product. Please try again.');
       console.error('Add product error:', err);
@@ -27,6 +57,8 @@ export function AddProductForm({ onSuccess }: AddProductFormProps) {
       setIsSubmitting(false);
     }
   };
+  
+  
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
@@ -106,16 +138,17 @@ export function AddProductForm({ onSuccess }: AddProductFormProps) {
 
       <div>
         <label htmlFor="imageUrl" className="block text-sm font-medium text-gray-700">
-          Image URL
+          Upload Product Image
         </label>
         <input
-          type="url"
+          type="file"
           id="imageUrl"
-          {...register('imageUrl', { required: 'Image URL is required' })}
-          className="mt-1 block w-full rounded-lg border-gray-300 shadow-sm focus:border-emerald-500 focus:ring-emerald-500"
+          accept="image/*"
+          onChange={handleFileChange}
+          className="mt-1 block w-full border-gray-300 shadow-sm focus:border-emerald-500 focus:ring-emerald-500"
         />
-        {errors.imageUrl && (
-          <p className="mt-1 text-sm text-red-600">{errors.imageUrl.message}</p>
+        {imageFile && (
+          <p className="mt-2 text-sm text-gray-500">Selected file: {imageFile.name}</p>
         )}
       </div>
 

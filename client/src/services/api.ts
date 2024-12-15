@@ -42,6 +42,9 @@ export const products = {
     const response = await api.post('/products', productData);
     return response.data;
   },
+  delete: async (productId: string) => {
+    await api.delete(`/products/${productId}`);
+  }  
 };
 
 export const resources = {

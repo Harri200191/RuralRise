@@ -78,7 +78,7 @@ const {
           price: 100,
           category: "Mock Category",
           image: "mockImageUrl",
-          seller: { name: "Mock Seller" },
+          seller: "Mock Seller" ,
         });
       });
   
@@ -95,8 +95,8 @@ const {
     describe("getProducts", () => {
       test("should fetch products successfully", async () => {
         const productsMock = [
-          { _id: "product1", title: "Product 1", seller: { name: "Seller 1" } },
-          { _id: "product2", title: "Product 2", seller: { name: "Seller 2" } },
+          { _id: "product1", title: "Product 1", seller: "Seller 1"  },
+          { _id: "product2", title: "Product 2", seller: "Seller 2"  },
         ];
   
         // Mock the chained methods: find().populate().sort()
