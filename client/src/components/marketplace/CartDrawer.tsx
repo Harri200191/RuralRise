@@ -44,7 +44,7 @@ export function CartDrawer({ isOpen, onClose }: CartDrawerProps) {
                 {items.map((item) => (
                   <div key={item.id} className="flex items-center mb-4 p-2 border rounded">
                     <img
-                      src={item.image}
+                      src={item.image.filePath}
                       alt={item.title}
                       className="w-16 h-16 object-cover rounded"
                     />

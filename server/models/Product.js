@@ -14,21 +14,21 @@ const productSchema = new mongoose.Schema({
     type: Number,
     required: true,
     min: 0
-  },
-  image: {
-    type: String,
-    required: true
-  },
+  }, 
   category: {
     type: String,
     required: true,
     enum: ['Handicrafts', 'Food', 'Textiles', 'Art']
   },
   seller: {
-    type: mongoose.Schema.Types.ObjectId,
+    type: String,
     ref: 'User',
     required: true
-  }
+  },
+  image: {
+      type: Object,
+      default:{}
+  },
 });
 
 module.exports = mongoose.model('Product', productSchema);

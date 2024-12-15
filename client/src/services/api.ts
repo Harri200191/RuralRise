@@ -3,10 +3,7 @@ import axios from 'axios';
 const API_URL = 'http://localhost:5000/api';
 
 const api = axios.create({
-  baseURL: API_URL,
-  headers: {
-    'Content-Type': 'application/json',
-  },
+  baseURL: API_URL, 
 });
 
 // Add auth token to requests if available
@@ -15,6 +12,11 @@ api.interceptors.request.use((config) => {
   if (token) {
     config.headers.Authorization = `Bearer ${token}`;
   }
+
+  if (!(config.data instanceof FormData)) {
+    config.headers['Content-Type'] = 'application/json';
+  }
+
   return config;
 });
 
@@ -42,6 +44,9 @@ export const products = {
     const response = await api.post('/products', productData);
     return response.data;
   },
+  delete: async (productId: string) => {
+    await api.delete(`/products/${productId}`);
+  }  
 };
 
 export const resources = {

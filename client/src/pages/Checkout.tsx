@@ -42,7 +42,7 @@ export function Checkout() {
               {items.map((item) => (
                 <div key={item.id} className="flex items-center border-b pb-4">
                   <img
-                    src={item.image}
+                    src={item.image.filePath}
                     alt={item.title}
                     className="w-16 h-16 object-cover rounded"
                   />

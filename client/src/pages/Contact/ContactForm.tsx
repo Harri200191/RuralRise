@@ -33,6 +33,7 @@ export function ContactForm() {
         setEmail('');
         setSubject('');
         setMessage('');
+        alert("Message sent!")
       } else {
         // Handle error (e.g., display an error message)
         alert('Failed to send message. Please try again.');
