@@ -17,7 +17,7 @@ const SORT_OPTIONS = [
   { value: 'price-desc', label: 'Price: High to Low' },
 ];
 
-const DEFAULT_PRICE_RANGE = { min: 0, max: 1000000 };
+const DEFAULT_PRICE_RANGE = { min: 0, max: 10000000000 };
 
 export function ProductFilters({ 
   selectedCategory, 

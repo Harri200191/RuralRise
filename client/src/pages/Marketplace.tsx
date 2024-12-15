@@ -14,7 +14,7 @@ type SortOption = 'price-asc' | 'price-desc';
 
 const DEFAULT_FILTERS = {
   category: 'All',
-  priceRange: { min: 0, max: 1000000 },
+  priceRange: { min: 0, max: 10000000000 },
   sortBy: 'price-asc' as SortOption,
   searchQuery: ''
 };
