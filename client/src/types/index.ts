@@ -34,6 +34,7 @@ export interface Resource {
   difficulty: 'beginner' | 'intermediate' | 'advanced';
   url: string;
   description: string;
+  link?: string;
 }
 
 export interface TeamMemberType {
