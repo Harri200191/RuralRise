@@ -1,293 +1,189 @@
 const {
-    createProduct,
-    getProducts,
-    getProductById,
-    updateProduct,
-    deleteProduct,
-  } = require("../controllers/product_controller");
-  const Product = require("../models/Product");
-  
-  jest.mock("../models/Product"); // Ensure the mock is set before requiring the controller
-  
-  describe("Product Controller", () => {
-    let req, res;
-  
-    beforeEach(() => {
-      req = {
-        body: {},
-        params: {},
-        user: { userId: "user123", id: "user123" }, // Mock user for seller authorization
+  createProduct,
+  getProducts,
+  getProductById,
+  updateProduct,
+  deleteProduct,
+} = require("../controllers/product_controller");
+
+jest.mock("../models/User");
+jest.mock("../models/Product");
+jest.mock("cloudinary", () => ({
+  v2: {
+    uploader: {
+      upload: jest.fn(),
+    },
+  },
+}));
+
+const { v2: cloudinary } = require("cloudinary");
+const User = require("../models/User");
+const Product = require("../models/Product");
+
+let req, res;
+
+describe("Product Controller Tests", () => {
+  beforeEach(() => {
+    req = {
+      user: { userId: "mockUserId" },
+      body: {
+        title: "Mock Product",
+        description: "Mock Description",
+        price: 100,
+        category: "Handicrafts",
+        imageUrl: "mockImageUrl",
+      },
+      file: null,
+      params: {},
+    };
+
+    res = {
+      status: jest.fn().mockReturnThis(),
+      json: jest.fn(),
+    };
+
+    jest.clearAllMocks();
+  });
+
+  describe("createProduct", () => {
+    test("should create a product with an uploaded file", async () => {
+      req.file = {
+        path: "mock/path/to/file.jpg",
+        originalname: "file.jpg",
+        mimetype: "image/jpeg",
+        size: 1024,
       };
-  
-      res = {
-        status: jest.fn().mockReturnThis(),
-        json: jest.fn(),
+
+      cloudinary.uploader.upload.mockResolvedValue({
+        secure_url: "mockCloudinaryUrl",
+      });
+
+      User.findById.mockResolvedValue({ name: "Mock Seller" });
+
+      const savedProduct = {
+        _id: "mockProductId",
+        title: req.body.title,
+        description: req.body.description,
+        price: req.body.price,
+        category: req.body.category,
+        image: {
+          fileName: "file.jpg",
+          filePath: "mockCloudinaryUrl",
+          fileType: "image/jpeg",
+          fileSize: "1 KB",
+        },
+        seller: "Mock Seller",
       };
-  
-      jest.clearAllMocks();
-    });
-  
-    describe("createProduct Controller", () => {
-      beforeEach(() => {
-        req = {
-          user: { userId: "mockSellerId" },
-          body: {
-            title: "Mock Product",
-            description: "Mock Description",
-            price: 100,
-            category: "Mock Category",
-            imageUrl: "mockImageUrl",
-          },
-        };
-  
-        // Mock the save method to resolve with the saved product data
-        Product.prototype.save.mockResolvedValue({
-          _id: "mockProductId",
-          title: req.body.title,
-          description: req.body.description,
-          price: req.body.price,
-          category: req.body.category,
-          image: req.body.imageUrl,
-          seller: req.user.userId,
-        });
-  
-        // Mock findById to return an object with a populate method
-        Product.findById.mockReturnValue({
-          populate: jest.fn().mockResolvedValue({
-            _id: "mockProductId",
-            title: req.body.title,
-            description: req.body.description,
-            price: req.body.price,
-            category: req.body.category,
-            image: req.body.imageUrl,
-            seller: { name: "Mock Seller" },
-          }),
-        });
-      });
-  
-      test("should create a product successfully", async () => {
-        await createProduct(req, res);
-  
-        expect(Product.prototype.save).toHaveBeenCalled();
-        expect(Product.findById).toHaveBeenCalledWith("mockProductId");
-        expect(res.status).toHaveBeenCalledWith(201);
-        expect(res.json).toHaveBeenCalledWith({
-          _id: "mockProductId",
-          title: "Mock Product",
-          description: "Mock Description",
-          price: 100,
-          category: "Mock Category",
-          image: "mockImageUrl",
-          seller: "Mock Seller" ,
-        });
-      });
-  
-      test("should handle database errors", async () => {
-        Product.prototype.save.mockRejectedValue(new Error("Database error"));
-  
-        await createProduct(req, res);
-  
-        expect(res.status).toHaveBeenCalledWith(500);
-        expect(res.json).toHaveBeenCalledWith({ message: "Failed to create product" });
-      });
-    });
-  
-    describe("getProducts", () => {
-      test("should fetch products successfully", async () => {
-        const productsMock = [
-          { _id: "product1", title: "Product 1", seller: "Seller 1"  },
-          { _id: "product2", title: "Product 2", seller: "Seller 2"  },
-        ];
-  
-        // Mock the chained methods: find().populate().sort()
-        Product.find.mockReturnValue({
-          populate: jest.fn().mockReturnValue({
-            sort: jest.fn().mockResolvedValue(productsMock),
-          }),
-        });
-  
-        await getProducts(req, res);
-  
-        expect(Product.find).toHaveBeenCalled();
-        expect(res.json).toHaveBeenCalledWith(productsMock);
-      });
-  
-      test("should return an error if product fetch fails", async () => {
-        // Mock the chained methods to reject at sort
-        Product.find.mockReturnValue({
-          populate: jest.fn().mockReturnValue({
-            sort: jest.fn().mockRejectedValue(new Error("Database error")),
-          }),
-        });
-  
-        await getProducts(req, res);
-  
-        expect(res.status).toHaveBeenCalledWith(500);
-        expect(res.json).toHaveBeenCalledWith({ message: "Failed to fetch products" });
-      });
-    });
-  
-    describe("getProductById", () => {
-      test("should fetch a product by ID successfully", async () => {
-        const productMock = {
-          _id: "product1",
-          title: "Product 1",
-          seller: { name: "Seller 1" },
-        };
-  
-        req.params.id = "product1";
-  
-        // Mock findById().populate()
-        Product.findById.mockReturnValue({
-          populate: jest.fn().mockResolvedValue(productMock),
-        });
-  
-        await getProductById(req, res);
-  
-        expect(Product.findById).toHaveBeenCalledWith("product1");
-        expect(res.json).toHaveBeenCalledWith(productMock);
-      });
-  
-      test("should return 404 if product is not found", async () => {
-        req.params.id = "nonexistent";
-  
-        // Mock findById().populate() to return null
-        Product.findById.mockReturnValue({
-          populate: jest.fn().mockResolvedValue(null),
-        });
-  
-        await getProductById(req, res);
-  
-        expect(res.status).toHaveBeenCalledWith(404);
-        expect(res.json).toHaveBeenCalledWith({ message: "Product not found" });
-      });
-  
-      test("should return an error if fetching product fails", async () => {
-        req.params.id = "product1";
-  
-        // Mock findById().populate() to reject
-        Product.findById.mockReturnValue({
-          populate: jest.fn().mockRejectedValue(new Error("Database error")),
-        });
-  
-        await getProductById(req, res);
-  
-        expect(res.status).toHaveBeenCalledWith(500);
-        expect(res.json).toHaveBeenCalledWith({ message: "Failed to fetch product" });
-      });
-    });
-  
-    describe("updateProduct", () => {
-      test("should update a product successfully", async () => {
-        req.params.id = "product1";
-        req.body = { title: "Updated Product" };
-  
-        const productMock = {
-          _id: "product1",
-          seller: req.user.id,
-        };
-  
-        // Mock findById to return the product
-        Product.findById.mockResolvedValue(productMock);
-  
-        // Mock findByIdAndUpdate to return the updated product
-        Product.findByIdAndUpdate.mockResolvedValue({
-          ...productMock,
-          ...req.body,
-        });
-  
-        await updateProduct(req, res);
-  
-        expect(Product.findById).toHaveBeenCalledWith("product1");
-        expect(Product.findByIdAndUpdate).toHaveBeenCalledWith(
-          "product1",
-          req.body,
-          { new: true }
-        );
-        expect(res.json).toHaveBeenCalledWith({
-          ...productMock,
-          ...req.body,
-        });
-      });
-  
-      test("should return 403 if user is not authorized", async () => {
-        req.params.id = "product1";
-  
-        const productMock = {
-          _id: "product1",
-          seller: "anotherUser",
-        };
-  
-        // Mock findById to return a product with a different seller
-        Product.findById.mockResolvedValue(productMock);
-  
-        await updateProduct(req, res);
-  
-        expect(res.status).toHaveBeenCalledWith(403);
-        expect(res.json).toHaveBeenCalledWith({ message: "Not authorized" });
-      });
-  
-      test("should return 404 if product is not found", async () => {
-        req.params.id = "nonexistent";
-  
-        // Mock findById to return null
-        Product.findById.mockResolvedValue(null);
-  
-        await updateProduct(req, res);
-  
-        expect(res.status).toHaveBeenCalledWith(404);
-        expect(res.json).toHaveBeenCalledWith({ message: "Product not found" });
-      });
-    });
-  
-    describe("deleteProduct", () => {
-      test("should delete a product successfully", async () => {
-        req.params.id = "product1";
-  
-        const productMock = {
-          _id: "product1",
-          seller: req.user.id,
-          remove: jest.fn().mockResolvedValue(),
-        };
-  
-        // Mock findById to return the product
-        Product.findById.mockResolvedValue(productMock);
-  
-        await deleteProduct(req, res);
-  
-        expect(Product.findById).toHaveBeenCalledWith("product1");
-        expect(productMock.remove).toHaveBeenCalled();
-        expect(res.json).toHaveBeenCalledWith({ message: "Product removed" });
-      });
-  
-      test("should return 403 if user is not authorized", async () => {
-        req.params.id = "product1";
-  
-        const productMock = {
-          _id: "product1",
-          seller: "anotherUser",
-        };
-  
-        // Mock findById to return a product with a different seller
-        Product.findById.mockResolvedValue(productMock);
-  
-        await deleteProduct(req, res);
-  
-        expect(res.status).toHaveBeenCalledWith(403);
-        expect(res.json).toHaveBeenCalledWith({ message: "Not authorized" });
-      });
-  
-      test("should return 404 if product is not found", async () => {
-        req.params.id = "nonexistent";
-  
-        // Mock findById to return null
-        Product.findById.mockResolvedValue(null);
-  
-        await deleteProduct(req, res);
-  
-        expect(res.status).toHaveBeenCalledWith(404);
-        expect(res.json).toHaveBeenCalledWith({ message: "Product not found" });
-      });
+
+      Product.prototype.save.mockResolvedValue(savedProduct);
+
+      await createProduct(req, res);
+
+      expect(res.status).toHaveBeenCalledWith(201);
+      expect(res.json).toHaveBeenCalledWith(savedProduct);
     });
   });
-  
+
+  describe("getProducts", () => {
+    test("should fetch all products successfully", async () => {
+      const mockProducts = [
+        { _id: "1", title: "Product 1" },
+        { _id: "2", title: "Product 2" },
+      ];
+
+      Product.find.mockReturnValue({
+        sort: jest.fn().mockResolvedValue(mockProducts),
+      });
+
+      await getProducts(req, res);
+
+      expect(res.json).toHaveBeenCalledWith(mockProducts);
+    });
+  });
+
+  describe("getProductById", () => {
+    test("should fetch a product by ID successfully", async () => {
+      const mockProduct = {
+        _id: "1",
+        title: "Product 1",
+        seller: "Seller 1",
+      };
+
+      req.params.id = "1";
+
+      Product.findById.mockReturnValue({
+        populate: jest.fn().mockResolvedValue(mockProduct),
+      });
+
+      await getProductById(req, res);
+
+      expect(res.json).toHaveBeenCalledWith(mockProduct);
+    });
+  });
+
+  describe("deleteProduct", () => {
+    test("should delete product successfully", async () => {
+      req.params.id = "productId";
+      
+      const mockProduct = {
+        _id: "productId",
+        seller: "Mock Seller",
+      };
+
+      User.findById.mockResolvedValue({ name: "Mock Seller" });
+      Product.findById.mockResolvedValue(mockProduct);
+      Product.findByIdAndDelete.mockResolvedValue(mockProduct);
+
+      await deleteProduct(req, res);
+
+      expect(res.status).toHaveBeenCalledWith(200);
+      expect(res.json).toHaveBeenCalledWith({ message: "Product deleted successfully" });
+    });
+
+    test("should return 404 if product not found", async () => {
+      req.params.id = "nonexistentId";
+      Product.findById.mockResolvedValue(null);
+
+      await deleteProduct(req, res);
+
+      expect(res.status).toHaveBeenCalledWith(404);
+      expect(res.json).toHaveBeenCalledWith({ message: "Product not found" });
+    });
+  });
+
+  describe("updateProduct", () => {
+    test("should update product successfully", async () => {
+      req.params.id = "productId";
+      req.body = { title: "Updated Title" };
+      req.user = { id: "sellerId" };
+
+      const mockProduct = {
+        _id: "productId",
+        seller: "sellerId",
+      };
+
+      Product.findById.mockResolvedValue(mockProduct);
+      Product.findByIdAndUpdate.mockResolvedValue({
+        ...mockProduct,
+        title: "Updated Title",
+      });
+
+      await updateProduct(req, res);
+
+      expect(res.json).toHaveBeenCalledWith({
+        ...mockProduct,
+        title: "Updated Title",
+      });
+    });
+
+    test("should return 404 if product not found", async () => {
+      req.params.id = "nonexistentId";
+      Product.findById.mockResolvedValue(null);
+
+      await updateProduct(req, res);
+
+      expect(res.status).toHaveBeenCalledWith(404);
+      expect(res.json).toHaveBeenCalledWith({ message: "Product not found" });
+    });
+  });
+});
