@@ -8,7 +8,6 @@ const LANGUAGE_OPTIONS = [
   { value: 'english', label: 'English' },
   { value: 'urdu', label: 'اردو' },
   { value: 'punjabi', label: 'پنجابی' },
-  { value: 'sindhi', label: 'سنڌي' }
 ];
 
 const TYPE_OPTIONS = [

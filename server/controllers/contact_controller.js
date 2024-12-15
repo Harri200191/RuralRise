@@ -9,7 +9,7 @@ sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 
 const contactUs = async (req, res) => {
   const {name, email, subject, message} = req.body;
-  const user = await user_model.findOne( {email: "harisrehmanchugtai@gmail.com"} );
+  const user = await user_model.findOne( {email: "harisrehman195103@gmail.com"} );
 
   if (!user) {
     res.status(400);
