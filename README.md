@@ -47,7 +47,6 @@ The application is built using the **MERN** stack:
    PORT=5000
    MONGO_URI=your_mongodb_connection_string
    JWT_SECRET=your_secret_key
-   JWT_SECRET=haris42398752389
    NODE_ENV=<your env>
 
    EMAIL_HOST=<your email host>
