@@ -1,5 +1,5 @@
+import { BookOpen, FileText, Video } from 'lucide-react';
 import React from 'react';
-import { BookOpen, Video, FileText } from 'lucide-react';
 import { FilterSection } from '../components/learn/FilterSection';
 import { useFilters } from '../hooks/useFilters';
 import type { Resource } from '../types';
@@ -7,7 +7,7 @@ import type { Resource } from '../types';
 const LANGUAGE_OPTIONS = [
   { value: 'english', label: 'English' },
   { value: 'urdu', label: 'اردو' },
-  { value: 'punjabi', label: 'پنجابی' }
+  { value: 'punjabi', label: 'پنجابی' },
 ];
 
 const TYPE_OPTIONS = [
@@ -32,8 +32,9 @@ export function Learn() {
       type: 'video',
       language: 'english',
       difficulty: 'beginner',
-      url: '#',
-      description: 'Learn the basics of digital marketing to grow your online presence.'
+      url: 'https://www.youtube.com/watch?v=bixR-KIJKYM',
+      description: 'Learn the basics of digital marketing to grow your online presence.',
+      link: 'https://www.youtube.com/watch?v=bixR-KIJKYM'
     },
     {
       id: '2',
@@ -42,7 +43,8 @@ export function Learn() {
       language: 'english',
       difficulty: 'beginner',
       url: '#',
-      description: 'Understand the essentials of launching a successful dropshipping store.'
+      description: 'Understand the essentials of launching a successful dropshipping store.',
+      link:'https://www.oberlo.com/blog/how-to-start-a-dropshipping-business'
     },
     {
       id: '3',
@@ -51,9 +53,10 @@ export function Learn() {
       language: 'english',
       difficulty: 'beginner',
       url: '#',
-      description: 'Step-by-step guide to becoming a successful freelancer in the digital economy.'
+      description: 'Step-by-step guide to becoming a successful freelancer in the digital economy.',
+      link: 'https://www.udemy.com/course/freelancing-certified-professional/?utm_source=bing&utm_medium=udemyads&utm_campaign=BG-Search_DSA_Beta_Prof_la.EN_cc.ROW-English&campaigntype=Search&portfolio=Bing-ROW-English&language=EN&product=Course&test=&audience=DSA&topic=&priority=Beta&utm_content=deal4584&utm_term=_._ag_1327112923142317_._ad__._kw_Marketing+en_._de_c_._dm__._pl__._ti_dat-2334744222699532%3Aloc-144_._li_144_._pd__._&matchtype=b&msclkid=c3dd198389601e3058177eddfcfa9903&couponCode=2021PM25'
     },
-  
+
     // Urdu Intermediate Resources
     {
       id: '4',
@@ -62,27 +65,30 @@ export function Learn() {
       language: 'urdu',
       difficulty: 'intermediate',
       url: '#',
-      description: 'Learn search engine optimization techniques to increase website traffic.'
+      description: 'Learn search engine optimization techniques to increase website traffic.',
+      link: 'https://www.youtube.com/watch?v=9mhLbcs96xc'
     },
     {
       id: '5',
       title: 'Social Media Strategies',
-      type: 'article',
+      type: 'video',
       language: 'urdu',
       difficulty: 'intermediate',
       url: '#',
-      description: 'Effective strategies to boost your business through social media platforms.'
+      description: 'Effective strategies to boost your business through social media platforms.',
+      link: 'https://muft.pk/course/social-media-management-course-for-beginners-in-urdu-by-azadchaiwala'
     },
     {
       id: '6',
       title: 'Content Marketing Mastery',
       type: 'course',
-      language: 'urdu',
+      language: 'english',
       difficulty: 'intermediate',
       url: '#',
-      description: 'Master content marketing and learn how to create engaging content.'
+      description: 'Master content marketing and learn how to create engaging content.',
+      link: 'https://www.udemy.com/course/learn-digital-marketing-course/?utm_source=bing&utm_medium=udemyads&utm_campaign=BG-Search_Keyword_Beta_Prof_la.EN_cc.ROW-English&campaigntype=Search&portfolio=Bing-ROW-English&language=EN&product=Course&test=&audience=Keyword&topic=Digital_Marketing&priority=Beta&utm_content=deal4584&utm_term=_._ag_1313918783733617_._ad__._kw_Digital+Marketing+learn+Tutorial_._de_c_._dm__._pl__._ti_kwd-82121042542427%3Aloc-144_._li_144_._pd__._&matchtype=b&msclkid=3a30762413561834aa32117a65666507&couponCode=2021PM25'
     },
-  
+
     // Punjabi Advanced Resources
     {
       id: '7',
@@ -91,56 +97,62 @@ export function Learn() {
       language: 'punjabi',
       difficulty: 'advanced',
       url: '#',
-      description: 'Techniques and strategies for scaling your business to the next level.'
+      description: 'Techniques and strategies for scaling your business to the next level.',
+      link: 'https://www.youtube.com/watch?v=TeC2k900ZgI'
     },
     {
       id: '8',
       title: 'E-commerce Analytics',
-      type: 'article',
+      type: 'video',
       language: 'punjabi',
       difficulty: 'advanced',
       url: '#',
-      description: 'Learn how to analyze data to improve your e-commerce performance.'
+      description: 'Learn how to analyze data to improve your e-commerce performance.',
+      link: 'https://www.youtube.com/watch?v=ykz2g_-ysv0'
     },
     {
       id: '9',
       title: 'Advanced Marketing Funnels',
       type: 'course',
-      language: 'punjabi',
+      language: 'english',
       difficulty: 'advanced',
       url: '#',
-      description: 'Deep dive into creating and optimizing advanced marketing funnels.'
+      description: 'Deep dive into creating and optimizing advanced marketing funnels.',
+      link: 'https://www.youtube.com/watch?v=2iMIDYYieKs'
     },
-  
+
     // Sindhi Beginner Resources
     {
       id: '10',
-      title: 'Basics of Graphic Design',
+      title: 'Basics of computer',
       type: 'video',
       language: 'sindhi',
       difficulty: 'beginner',
       url: '#',
-      description: 'Learn the fundamentals of graphic design using popular tools.'
+      description: 'Learn the fundamentals of computer system',
+      link: 'https://www.youtube.com/watch?v=SrEk2TYBQZ4'
     },
     {
       id: '11',
       title: 'Starting a Blog',
       type: 'article',
-      language: 'sindhi',
+      language: 'english',
       difficulty: 'beginner',
       url: '#',
-      description: 'A beginner-friendly guide to launching and monetizing a blog.'
+      description: 'A beginner-friendly guide to launching and monetizing a blog.',
+      link: 'https://blog.hubspot.com/marketing/how-to-start-a-blog'
     },
     {
       id: '12',
-      title: 'Introduction to Affiliate Marketing',
+      title: 'CIT course',
       type: 'course',
       language: 'sindhi',
       difficulty: 'beginner',
       url: '#',
-      description: 'Learn how to start earning through affiliate marketing programs.'
+      description: 'Learn more about CIT.',
+      link: 'https://www.youtube.com/watch?v=H8nxN9CWpCQ'
     },
-  
+
     // English Advanced Resources
     {
       id: '13',
@@ -149,7 +161,8 @@ export function Learn() {
       language: 'english',
       difficulty: 'advanced',
       url: '#',
-      description: 'Discover how AI is revolutionizing the e-commerce landscape.'
+      description: 'Discover how AI is revolutionizing the e-commerce landscape.',
+      link: 'https://www.youtube.com/watch?v=jzlRhXk9Y_s'
     },
     {
       id: '14',
@@ -158,7 +171,8 @@ export function Learn() {
       language: 'english',
       difficulty: 'advanced',
       url: '#',
-      description: 'Guide to taking your business to global markets effectively.'
+      description: 'Guide to taking your business to global markets effectively.',
+      link: 'https://www.forbes.com/councils/forbesbusinesscouncil/2021/05/11/going-global-how-to-make-international-expansion-a-success/'
     },
     {
       id: '15',
@@ -166,11 +180,11 @@ export function Learn() {
       type: 'course',
       language: 'english',
       difficulty: 'advanced',
-      url: '#',
-      description: 'Learn advanced data-driven marketing techniques for scaling your business.'
+      url: 'https://www.coursera.org/specializations/datascienceformarketing?msockid=0b90f7273dad609518f1e5103ca461f5',
+      description: 'Learn advanced data-driven marketing techniques for scaling your business.',
+      link: 'https://www.coursera.org/specializations/datascienceformarketing?msockid=0b90f7273dad609518f1e5103ca461f5'
     }
-  
-    // Add more resources as needed to expand the dataset.
+
   ]);
   
 
@@ -241,7 +255,16 @@ export function Learn() {
                 {getIcon(resource.type)}
                 <span className="ml-2 text-sm text-gray-500 capitalize">{resource.type}</span>
               </div>
-              <h3 className="text-lg font-semibold mb-2">{resource.title}</h3>
+              <h3 className="text-lg font-semibold mb-2">
+                <a
+                  href={resource.link}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-emerald-600 hover:text-emerald-700"
+                >
+                  {resource.title}
+                </a>
+              </h3>
               <p className="text-gray-600 text-sm mb-4">{resource.description}</p>
               <div className="flex justify-between items-center">
                 <span className="text-sm bg-emerald-100 text-emerald-800 px-2 py-1 rounded">

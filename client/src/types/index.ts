@@ -16,6 +16,7 @@ export interface User {
   skills: string[];
   bio?: string;
   avatar?: string;
+  link?: string;
 }
 
 export interface ProductFormData {
