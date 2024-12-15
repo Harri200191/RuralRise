@@ -6,7 +6,7 @@ export function SuccessStories() {
     {
       id: '1',
       title: 'From Local Artisan to Online Success',
-      excerpt: 'How Fatima transformed her traditional handicraft business into a thriving online enterprise.',
+      excerpt: 'How Divya transformed her traditional handicraft business into a thriving online enterprise.',
       content: '',
       image: 'https://th.bing.com/th/id/OIP.IUOLzL6DEMeEyhYzE-MRRAHaFj?rs=1&pid=ImgDetMain',
       entrepreneur: {
