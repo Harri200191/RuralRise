@@ -56,8 +56,6 @@ export function AddProductForm({ onSuccess }: AddProductFormProps) {
     }
   };
   
-  
-
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
       {error && (

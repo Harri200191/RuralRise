@@ -5,10 +5,6 @@ const { fileSizeFormatter } = require("../utils/fileUpload");
 
 const createProduct = async (req, res) => {
   try {
-    console.log('File:', req.file); 
-    console.log('Files:', req.files); 
-    console.log('Body:', req.body);
-
     const { title, description, price, category, imageUrl } = req.body;
     const sellerId = req.user.userId;
 
@@ -29,6 +25,7 @@ const createProduct = async (req, res) => {
         });
       } catch (error) {
         resp.status(500);
+        console.error("Cloudinary upload error:", error);
         throw new Error("Image could not be uploaded to the Cloud");
       }
   
@@ -67,7 +64,7 @@ const createProduct = async (req, res) => {
       category: savedProduct.category,
       seller: seller.name, 
     };
-
+ 
     res.status(201).json(response);
   } catch (error) {
     console.error('Product creation error:', error);

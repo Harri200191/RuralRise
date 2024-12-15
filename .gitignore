@@ -4,4 +4,4 @@ server/.env
 node_modules
 server/node_modules
 *.vite
-uploads
+server/uploads
