@@ -31,7 +31,7 @@ export function ProductCard({ product, onDelete }: ProductCardProps) {
   return (
     <div className="bg-white rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-shadow">
       <img
-        src={product.image}
+        src={product.image.filePath}
         alt={product.title}
         className="w-full h-48 object-cover"
       />
