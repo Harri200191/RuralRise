@@ -40,9 +40,7 @@ export function AddProductForm({ onSuccess }: AddProductFormProps) {
 
       if (imageFile) {
         formData.append('file', imageFile);  
-      }
-      console.log("Files: ", imageFile);
-      console.log("Form Data: ", Array.from(formData.entries())); 
+      } 
  
       const newProduct = await products.create(formData);  
   
