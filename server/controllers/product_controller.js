@@ -9,7 +9,7 @@ const createProduct = async (req, res) => {
     console.log('Files:', req.files); 
     console.log('Body:', req.body);
 
-    const { title, description, price, category, imageUrl, file } = req.body;
+    const { title, description, price, category, imageUrl } = req.body;
     const sellerId = req.user.userId;
 
     const seller = await User.findById(sellerId, 'name'); // Fetch only the `name` field

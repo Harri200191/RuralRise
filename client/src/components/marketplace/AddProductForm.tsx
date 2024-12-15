@@ -41,12 +41,10 @@ export function AddProductForm({ onSuccess }: AddProductFormProps) {
       if (imageFile) {
         formData.append('file', imageFile);  
       }
-  
       console.log("Files: ", imageFile);
       console.log("Form Data: ", Array.from(formData.entries())); 
-
-      // Assuming the .create function supports sending FormData
-      const newProduct = await products.create(formData); // Send formData containing both product info and the image file
+ 
+      const newProduct = await products.create(formData);  
   
       reset();
       onSuccess?.(newProduct); // Pass the new product to the parent
