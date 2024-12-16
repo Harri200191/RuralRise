@@ -1,6 +1,7 @@
 import axios from 'axios';
 
-const DEV_ENV = process.env.DEV_ENV;
+const DEV_ENV = import.meta.env.VITE_APP_DEV_ENV; 
+
 let API_URL = 'http://localhost:5000/api';
 
 if (DEV_ENV == "development") {
