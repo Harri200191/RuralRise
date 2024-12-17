@@ -7,4 +7,8 @@ export default defineConfig({
   optimizeDeps: {
     exclude: ['lucide-react'],
   },
+  define: {
+    "process.env.IS_PREACT": JSON.stringify("true"),
+  },
 });
+
