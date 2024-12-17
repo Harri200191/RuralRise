@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom';
 import { LoginForm } from '../components/auth/LoginForm';
 import { RegisterForm } from '../components/auth/RegisterForm';
 
+
 export function Auth({ mode }: { mode: 'login' | 'register' }) {
   return (
     <div className="relative min-h-screen flex flex-col justify-center py-12 sm:px-6 lg:px-8">
@@ -9,7 +10,7 @@ export function Auth({ mode }: { mode: 'login' | 'register' }) {
       <div
         className="absolute inset-0 bg-cover bg-center"
         style={{
-          backgroundImage: `url('https://th.bing.com/th/id/R.2712e0517282c7d11be2a36d4c90575e?rik=o1C6bL06UeeZIg&riu=http%3a%2f%2f3.bp.blogspot.com%2f-XEFbedB1qNI%2fTkPQmnGGJKI%2fAAAAAAAAAo8%2fjMw9JyjW_2s%2fs1600%2fWoman%2bof%2bthe%2bDesert.jpg&ehk=ffyT5cxMwLz5GnO7YeUfyKnutcqLiMC4BBhBwHPYYtE%3d&risl=&pid=ImgRaw&r=0')`,
+          backgroundImage: `url('https://tse4.mm.bing.net/th/id/OIP.sY65rfMSkzZG2kpJme-i_gHaE8?rs=1&pid=ImgDetMain')`,
         }}
       ></div>
       <div className="absolute inset-0 bg-black opacity-40"></div>
