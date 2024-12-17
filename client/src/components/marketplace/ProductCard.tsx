@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
 import { ShoppingCart, Trash2 } from 'lucide-react';
-import type { Product } from '../../types';
-import { useCartStore } from '../../store/cartStore';
+import { useState } from 'react';
 import { useAuthStore } from '../../store/authStore';
+import { useCartStore } from '../../store/cartStore';
+import type { Product } from '../../types';
 
 interface ProductCardProps {
   product: Product;
@@ -65,7 +65,7 @@ export function ProductCard({ product, onDelete }: ProductCardProps) {
               className="flex items-center space-x-1 bg-emerald-600 text-white px-3 py-1 rounded hover:bg-emerald-700"
             >
               <ShoppingCart size={16} />
-              <span>Add to Cart</span>
+              <span></span>
             </button>
           </div>
         </div>

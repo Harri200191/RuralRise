@@ -1,20 +1,20 @@
-import React from 'react';
-import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
-import { Header } from './components/layout/Header';
+import { Navigate, Route, BrowserRouter as Router, Routes } from 'react-router-dom';
 import { Footer } from './components/layout/Footer';
-import { Home } from './pages/Home';
-import { Auth } from './pages/Auth';
-import { Marketplace } from './pages/Marketplace';
-import { Learn } from './pages/Learn';
-import { Community } from './pages/Community';
-import { About } from './pages/About';
-import { Contact } from './pages/Contact';
-import { Blog } from './pages/Blog';
-import { Tutorials } from './pages/Tutorials';
-import { SuccessStories } from './pages/SuccessStories';
+import { Header } from './components/layout/Header';
 import { PrivateRoute } from './components/routes/PrivateRoute';
-import { useAuthStore } from './store/authStore';
 import { useInitializeAuth } from './hooks/useInitializeAuth';
+import { About } from './pages/About';
+import { Auth } from './pages/Auth';
+import { Blog } from './pages/Blog';
+import { Cart } from './pages/Cart';
+import { Community } from './pages/Community';
+import { Contact } from './pages/Contact';
+import { Home } from './pages/Home';
+import { Learn } from './pages/Learn';
+import { Marketplace } from './pages/Marketplace';
+import { SuccessStories } from './pages/SuccessStories';
+import { Tutorials } from './pages/Tutorials';
+import { useAuthStore } from './store/authStore';
 
 export function App() {
   const { isAuthenticated } = useAuthStore();
@@ -39,23 +39,28 @@ export function App() {
             <Route path="/blog" element={<Blog />} />
             <Route path="/tutorials" element={<Tutorials />} />
             <Route path="/success-stories" element={<SuccessStories />} />
-            
+            <Route path="/marketplace" element={
+                <Marketplace />
+            } />
             {/* Protected Routes */}
             <Route path="/" element={
               <PrivateRoute>
                 <Home />
               </PrivateRoute>
             } />
+
+            <Route path="/cart" element={
+              <PrivateRoute>
+                <Cart />
+              </PrivateRoute>
+            } />
+
             <Route path="/dashboard" element={
               <PrivateRoute>
                 <Home />
               </PrivateRoute>
             } />
-            <Route path="/marketplace" element={
-              <PrivateRoute>
-                <Marketplace />
-              </PrivateRoute>
-            } />
+            
             <Route path="/learn" element={
               <PrivateRoute>
                 <Learn />
