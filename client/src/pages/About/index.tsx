@@ -12,7 +12,7 @@ export function About() {
     },
     {
       name: 'Aima Sibtain',
-      role: 'Community Director',
+      role: 'Director',
       description: 'Expert in building and nurturing entrepreneurial communities',
       image: 'https://th.bing.com/th/id/OIP.CjW4KuMskKzlsS14Ek4YDQHaHa?rs=1&pid=ImgDetMain'
     },
