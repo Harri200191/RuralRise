@@ -13,20 +13,7 @@
           <mxGeometry x="300" y="100" width="160" height="50" as="geometry" />
         </mxCell>
         <!-- Use Case: View Product Details -->
-        <mxCell id="4" value="View Product Details" style="ellipse;whiteSpace=wrap;html=1;" vertex="1" parent="1">
-          <mxGeometry x="300" y="200" width="160" height="50" as="geometry" />
-        </mxCell>
-        <!-- Use Case: Buy Products -->
-        <mxCell id="5" value="Buy Products" style="ellipse;whiteSpace=wrap;html=1;" vertex="1" parent="1">
-          <mxGeometry x="300" y="300" width="160" height="50" as="geometry" />
-        </mxCell>
-        <!-- Use Case: Support Women Entrepreneurship -->
-        <mxCell id="6" value="Support Women Entrepreneurship" style="ellipse;whiteSpace=wrap;html=1;" vertex="1" parent="1">
-          <mxGeometry x="300" y="400" width="200" height="50" as="geometry" />
-        </mxCell>
-        <!-- Association: Community User to View Products -->
-        <mxCell id="7" edge="1" source="2" target="3" parent="1">
-          <mxGeometry relative="1" as="geometry" />
+      
         </mxCell>
         <!-- Association: Community User to View Product Details -->
         <mxCell id="8" edge="1" source="2" target="4" parent="1">
