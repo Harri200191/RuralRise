@@ -93,8 +93,10 @@ export function RegisterForm() {
           required
           className="mt-1 block w-full rounded-lg border-gray-300 shadow-sm focus:border-emerald-500 focus:ring-emerald-500"
         >
+          <option value="mentor">user</option>
           <option value="entrepreneur">Entrepreneur</option>
           <option value="mentor">Mentor</option>
+          
         </select>
       </div>
 
